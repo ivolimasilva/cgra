@@ -48,7 +48,7 @@ MyInterface.prototype.init = function(application) {
 	// this.speed=3;
 	// min and max values can be specified as parameters
 	
-	this.gui.add(this.scene, 'planeSpeed', 0, 10);
+	this.gui.add(this.scene, 'robotSpeed', 0, 10);
 
 	return true;
 };
@@ -84,13 +84,13 @@ MyInterface.prototype.processKeyboard = function(event) {
 		case (87):	//fallthrough to lower case
 		case (119):
 			console.log("Key 'W' pressed");
-			this.scene.robot.incPos(0.1*this.scene.planeSpeed);
+			this.scene.robot.incPos(0.1*this.scene.robotSpeed);
 			break;
 
 		case (83):	//fallthrough to lower case
 		case (115):
 			console.log("Key 'S' pressed");
-			this.scene.robot.incPos(-0.1*this.scene.planeSpeed);
+			this.scene.robot.incPos(-0.1*this.scene.robotSpeed);
 			break;					
 	};
 };

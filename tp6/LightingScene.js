@@ -53,11 +53,9 @@ LightingScene.prototype.init = function(application)
 
 	/* GUI vars */
 	this.GUIlights = [this.lights[0].enabled, this.lights[1].enabled, this.lights[2].enabled, this.lights[3].enabled, this.lights[4].enabled];
-	this.planeSpeed = 3;
-
-	/* Interface Keyboard */
 	this.robotRotate = 0;
 	this.robotWalk = 0;
+	this.robotSpeed = 3;
 	
 
 	this.gl.clearColor(0.0, 0.0, 0.0, 1.0);
