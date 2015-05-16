@@ -23,7 +23,7 @@ var time2Ang_h = time2Ang_m/60.0;
  	this.minutes = new MyClockHand(scene, 0.65, (60*d.getMinutes()+d.getSeconds())*1000);
  	this.hours = new MyClockHand(scene, 0.4, (3600*d.getHours()+60*d.getMinutes()+d.getSeconds())*5*1000);
 
-	console.log(d.getHours() + 'h' + d.getMinutes() + 'm' + d.getSeconds() + 's');
+	console.log('Init time: ' + d.getHours() + 'h' + d.getMinutes() + 'm' + d.getSeconds() + 's');
 
 	// Board Appearance
 	this.faceAppearance = new CGFappearance(this.scene);

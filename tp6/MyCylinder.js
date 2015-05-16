@@ -11,11 +11,11 @@ function MyCylinder(scene, slices, stacks) {
 	this.slices=slices;
 	this.stacks=stacks;
 
-	this.circle = new MyCircle(this.scene,slices);
+	this.top = new MyCircle(this.scene,slices);
+	this.bot = new MyCircle(this.scene,slices);
 
 	this.ang = 360*degToRad/(this.slices);
 	this.height = 1.0/(this.stacks);
-	console.log("Drawing cylinder with #"+ slices + " slices, #" + stacks + " stacks -> stack height = " + this.height);
 
 	this.initBuffers();
 };
@@ -46,7 +46,10 @@ for (var stack=0; stack <= this.stacks; stack++){
 		this.normals.push(0);
 
 		/* textures */
-		this.texCoords.push(slice/(this.slices-1), stack/this.stacks);
+		//one complete texture for each stacked slice
+		//to use with 'REPEAT' wrapping mode
+		//this.texCoords.push(slice/(this.slices-1), stack/this.stacks);
+		this.texCoords.push(1*slice/(this.slices-1), 1*stack/(this.stacks));
 	}
 }
 
@@ -96,8 +99,14 @@ MyCylinder.prototype.display = function()
 	//top
 	this.scene.pushMatrix();
 		this.scene.translate(0,0,1);
-		this.circle.display();
+		this.top.display();
 	this.scene.popMatrix();
+
+	//bot
+	this.scene.pushMatrix();
+		this.scene.rotate(-180*degToRad,1,0,0);
+		this.bot.display();
+	this.scene.popMatrix();	
 	
 	//cylinder
 	CGFobject.prototype.display.call(this);

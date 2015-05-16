@@ -16,7 +16,6 @@ function MyLamp(scene, slices, stacks) {
 	this.theta = 180*degToRad/(slices);
 
 	this.height = 1.0/stacks;
-	console.log("Drawing Lamp with #"+ slices + " slices, #" + stacks + " stacks -> stack height = " + this.height);
 
 	this.initBuffers();
 };
