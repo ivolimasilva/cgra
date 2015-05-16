@@ -266,6 +266,7 @@ LightingScene.prototype.display = function() {
 	this.pushMatrix();
 		this.translate(7.5,8,7.5);
 		this.rotate(Math.PI/2, 1,0,0);
+		this.materialDefault.apply();
 		this.lamp.display();
 	this.popMatrix();
 

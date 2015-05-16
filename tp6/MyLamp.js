@@ -17,6 +17,8 @@ function MyLamp(scene, slices, stacks) {
 
 	this.height = 1.0/stacks;
 
+	this.base = new MyCircle(this.scene, slices);
+
 	this.initBuffers();
 };
 
@@ -34,8 +36,8 @@ for (var stack=0; stack <= this.stacks; stack++){
 	/* vertices */
 	for (var slice=0; slice < this.slices; slice++){
 		//push vertices from current slice
-		this.vertices.push(Math.sin(2*slice*this.theta-90)*Math.sin(stack*this.phi));
-		this.vertices.push(Math.cos(2*slice*this.theta-90)*Math.sin(stack*this.phi));
+		this.vertices.push(Math.sin(2*slice*this.theta-90*degToRad)*Math.sin(stack*this.phi));
+		this.vertices.push(Math.cos(2*slice*this.theta-90*degToRad)*Math.sin(stack*this.phi));
 		this.vertices.push(Math.cos(stack*this.phi));
 	}	
 }
@@ -83,3 +85,14 @@ for (var stack=1; stack <= this.stacks; stack++){
 	this.primitiveType = this.scene.gl.TRIANGLES;
 	this.initGLBuffers();
  };
+
+
+MyLamp.prototype.display = function(){
+
+	this.scene.pushMatrix();
+		this.scene.rotate(180*degToRad,1,0,0);	
+		this.base.display();
+	this.scene.popMatrix();
+
+	CGFobject.prototype.display.call(this);
+}
