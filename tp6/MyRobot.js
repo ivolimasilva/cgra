@@ -25,6 +25,17 @@ function MyRobot(scene, initX, initZ, initAngle) {
     this.armR = new MyCoveredCylinder(this.scene, 10, 20);
 
     // Appearances
+    
+    // Head Appearance
+    /*
+    this.headAppearance = new CGFappearance(this.scene);
+    this.headAppearance.setAmbient(0.3, 0.3, 0.3, 1);
+    this.headAppearance.setDiffuse(0, 1, 0.7, 1);
+    this.headAppearance.setSpecular(0.15, 0.15, 0.15, 1);
+    this.headAppearance.setShininess(10);
+    this.headAppearance.loadTexture("../resources/images/r2d2.png");
+    this.headAppearance.setTextureWrap("REPEAT", "REPEAT");
+    */
 
     // Body Appearances
     // Body Appearance 1
@@ -104,7 +115,7 @@ MyRobot.prototype.display = function () {
     this.scene.translate(0, 1.8, 0);
     this.scene.rotate(-90 * degToRad, 1, 0, 0);
     this.scene.scale(0.3, 0.3, 0.5);
-    this.scene.materialDefault.apply();
+    // this.scene.materialDefault.apply();
     this.head.display();
     this.scene.popMatrix();
 
