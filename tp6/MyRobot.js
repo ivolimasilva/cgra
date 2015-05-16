@@ -43,13 +43,31 @@ function MyRobot(scene, initX, initZ, initAngle)
 	this.bodyAppearance.setSpecular(0.15,0.15,0.15,1);	
 	this.bodyAppearance.setShininess(10);
 
-	// Arm Appearance
-	this.armAppearance = new CGFappearance(this.scene);
-	this.armAppearance.setAmbient(0.3,0.3,0.3,1);
-	this.armAppearance.setDiffuse(0.1,0.3,1,1);
-	this.armAppearance.setSpecular(0.15,0.15,0.15,1);	
-	this.armAppearance.setShininess(10);
+	// Arm Appearances
+		// Arm Appearance 1
+		this.armAppearance1 = new CGFappearance(this.scene);
+		this.armAppearance1.setAmbient(0.3,0.3,0.3,1);
+		this.armAppearance1.setDiffuse(0.1,0.3,1,1);
+		this.armAppearance1.setSpecular(0.15,0.15,0.15,1);	
+		this.armAppearance1.setShininess(10);
 
+		// Arm Appearance 2
+		this.armAppearance2 = new CGFappearance(this.scene);
+		this.armAppearance2.setAmbient(0.3,0.3,0.3,1);
+		this.armAppearance2.setDiffuse(0.8,0.3,0.2,1);
+		this.armAppearance2.setSpecular(0.15,0.15,0.15,1);	
+		this.armAppearance2.setShininess(10);	
+
+		// Arm Appearance 3
+		this.armAppearance3 = new CGFappearance(this.scene);
+		this.armAppearance3.setAmbient(0.4,0.4,0.4,1);
+		this.armAppearance3.setDiffuse(0,0,0,1);
+		this.armAppearance3.setSpecular(0.15,0.15,0.15,1);	
+		this.armAppearance3.setShininess(10);	
+
+	// Array to choose appearances in GUI
+	this.armAppearances = [this.armAppearance1, this.armAppearance2, this.armAppearance3];
+	this.armAppearancesList = {"Cyan" : "0" , "Orange" : "1", "Black" : "2"};
 };
 
 MyRobot.prototype = Object.create(CGFobject.prototype);
@@ -123,7 +141,7 @@ MyRobot.prototype.display = function()
 		this.scene.translate(0.15,1.2,0);
 		this.scene.rotate(90*degToRad,1,0,0);
 		this.scene.scale(0.05,0.05,0.5);
-		this.armAppearance.apply();
+		this.armAppearances[this.armAppearancesList[this.scene.robotArmAppearance]].apply();
 		this.armL.display();
 	this.scene.popMatrix();	
 
@@ -132,7 +150,7 @@ MyRobot.prototype.display = function()
 		this.scene.translate(-0.15,1.2,0);
 		this.scene.rotate(90*degToRad,1,0,0);
 		this.scene.scale(0.05,0.05,0.5);
-		this.armAppearance.apply();
+		this.armAppearances[this.armAppearancesList[this.scene.robotArmAppearance]].apply();
 		this.armL.display();
 	this.scene.popMatrix();	
 }

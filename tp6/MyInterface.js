@@ -34,7 +34,6 @@ MyInterface.prototype.init = function(application) {
 	// add a group of controls (and open/expand by defult)
 	
 	var lights=this.gui.addFolder("Lights");
-	lights.open();
 
 	// add two check boxes to the group. The identifiers must be members variables of the scene initialized in scene.init as boolean
 	// e.g. this.option1=true; this.option2=false;
@@ -49,6 +48,9 @@ MyInterface.prototype.init = function(application) {
 	// min and max values can be specified as parameters
 	
 	this.gui.add(this.scene, 'robotSpeed', 0, 10);
+
+	// add constrained inputs
+	this.gui.add(this.scene, 'robotArmAppearance', ['Cyan', 'Orange', 'Black']);
 
 	return true;
 };
