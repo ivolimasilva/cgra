@@ -19,22 +19,13 @@ function MyRobot(scene, initX, initZ, initAngle)
     // Object constructors
     this.head = new MyLamp(this.scene, 20, 20);
     this.body = new MyCoveredCylinder(this.scene, 10, 20);
-    this.wheelL = new MyCylinder(this.scene, 10, 5);
-    this.wheelR = new MyCylinder(this.scene, 10, 5);    
+    this.wheelL = new MyWheel(this.scene, 10, 5);
+    this.wheelR = new MyWheel(this.scene, 10, 5);    
     this.base = new MyUnitCubeQuad(this.scene);
     this.armL = new MyCoveredCylinder(this.scene, 10, 20);
     this.armR = new MyCoveredCylinder(this.scene, 10, 20); 
 
 	// Appearances
-
-	// Wheel Appearance
-	this.wheelAppearance = new CGFappearance(this.scene);
-	this.wheelAppearance.setAmbient(0.7, 0.7, 0.7, 1);
-	this.wheelAppearance.setDiffuse(0.7, 0.7, 0.7, 1);
-	this.wheelAppearance.setSpecular(0.1,0.1,0.1,1);
-	this.wheelAppearance.setShininess(5);
-	this.wheelAppearance.loadTexture(this.scene.path + "wheel.png");
-	this.wheelAppearance.setTextureWrap("CLAMP_TO_EDGE", "CLAMP_TO_EDGE");
 
 	// Body Appearance
 	this.bodyAppearance = new CGFappearance(this.scene);
@@ -112,19 +103,17 @@ MyRobot.prototype.display = function()
 
 	//Wheel left
 	this.scene.pushMatrix();
-		this.scene.translate(0.5,0.25,0);
-		this.scene.rotate(-90*degToRad,0,1,0);
+		this.scene.translate(0.25,0.25,0);
+		this.scene.rotate(90*degToRad,0,1,0);
 		this.scene.scale(0.25,0.25,0.25);
-		this.wheelAppearance.apply();
 		this.wheelL.display();
 	this.scene.popMatrix();
 
 	//Wheel right
 	this.scene.pushMatrix();
-		this.scene.translate(-0.5,0.25,0);
-		this.scene.rotate(90*degToRad,0,1,0);
+		this.scene.translate(-0.25,0.25,0);
+		this.scene.rotate(-90*degToRad,0,1,0);
 		this.scene.scale(0.25,0.25,0.25);
-		this.wheelAppearance.apply();
 		this.wheelR.display();
 	this.scene.popMatrix();
 
@@ -145,12 +134,12 @@ MyRobot.prototype.display = function()
 		this.armL.display();
 	this.scene.popMatrix();	
 
-	//Arm left
+	//Arm right
 	this.scene.pushMatrix();
 		this.scene.translate(-0.15,1.2,0);
 		this.scene.rotate(90*degToRad,1,0,0);
 		this.scene.scale(0.05,0.05,0.5);
 		this.armAppearances[this.armAppearancesList[this.scene.robotArmAppearance]].apply();
-		this.armL.display();
+		this.armR.display();
 	this.scene.popMatrix();	
 }
