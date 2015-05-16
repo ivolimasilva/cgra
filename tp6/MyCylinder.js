@@ -11,9 +11,6 @@ function MyCylinder(scene, slices, stacks) {
 	this.slices=slices;
 	this.stacks=stacks;
 
-	this.top = new MyCircle(this.scene,slices);
-	this.bot = new MyCircle(this.scene,slices);
-
 	this.ang = 360*degToRad/(this.slices);
 	this.height = 1.0/(this.stacks);
 
@@ -92,22 +89,3 @@ for (var stack=1; stack <= this.stacks; stack++){
 	this.primitiveType = this.scene.gl.TRIANGLES;
 	this.initGLBuffers();
  };
-
-
-MyCylinder.prototype.display = function()
-{
-	//top
-	this.scene.pushMatrix();
-		this.scene.translate(0,0,1);
-		this.top.display();
-	this.scene.popMatrix();
-
-	//bot
-	this.scene.pushMatrix();
-		this.scene.rotate(-180*degToRad,1,0,0);
-		this.bot.display();
-	this.scene.popMatrix();	
-	
-	//cylinder
-	CGFobject.prototype.display.call(this);
-}

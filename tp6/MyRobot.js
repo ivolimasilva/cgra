@@ -18,12 +18,12 @@ function MyRobot(scene, initX, initZ, initAngle)
 
     // Object constructors
     this.head = new MyLamp(this.scene, 20, 20);
-    this.body = new MyCylinder(this.scene, 10, 20);
+    this.body = new MyCoveredCylinder(this.scene, 10, 20);
     this.wheelL = new MyCylinder(this.scene, 10, 5);
     this.wheelR = new MyCylinder(this.scene, 10, 5);    
     this.base = new MyUnitCubeQuad(this.scene);
-    this.armL = new MyCylinder(this.scene, 10, 20);
-    this.armR = new MyCylinder(this.scene, 10, 20); 
+    this.armL = new MyCoveredCylinder(this.scene, 10, 20);
+    this.armR = new MyCoveredCylinder(this.scene, 10, 20); 
 
 	// Appearances
 
