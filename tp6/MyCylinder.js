@@ -46,10 +46,10 @@ for (var stack=0; stack <= this.stacks; stack++){
 		this.normals.push(0);
 
 		/* textures */
-		//one complete texture for each stacked slice
-		//to use with 'REPEAT' wrapping mode
-		//this.texCoords.push(slice/(this.slices-1), stack/this.stacks);
-		this.texCoords.push(1*slice/(this.slices-1), 1*stack/(this.stacks));
+		if(slice <= this.slices/2)
+			this.texCoords.push(slice/(this.slices), stack/this.stacks);
+		else
+			this.texCoords.push((this.slices-slice)/(this.slices), stack/this.stacks);
 	}
 }
 

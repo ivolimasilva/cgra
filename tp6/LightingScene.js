@@ -74,7 +74,7 @@ LightingScene.prototype.init = function(application)
 	this.wall = new Plane(this);
 	this.boardA = new Plane(this, BOARD_A_DIVISIONS, BOARD_A_RATIO);
 	this.boardB = new Plane(this, BOARD_B_DIVISIONS, BOARD_B_RATIO);
-	this.cylinder = new MyCylinder(this, 5, 20);
+	this.cylinder = new MyCylinder(this, 6, 20);
 	this.lamp = new MyLamp(this,8,20);
 	this.clock = new MyClock(this, 12, 1);
 	this.paperPlane = new MyPaperPlane(this, 20, [0, 11.5, 2], [180*degToRad, 180*degToRad, 0*degToRad], [0, -1.5, -5]);
@@ -132,7 +132,6 @@ LightingScene.prototype.init = function(application)
 	this.pillarAppearance.setSpecular(0.3,0.3,0.3,1);
 	this.pillarAppearance.setShininess(50);
 	this.pillarAppearance.loadTexture(this.path + "pillar.png");
-//	this.pillarAppearance.setTextureWrap("REPEAT", "REPEAT");
 	this.pillarAppearance.setTextureWrap("CLAMP_TO_EDGE", "CLAMP_TO_EDGE");
 
 	/* setup update method */
