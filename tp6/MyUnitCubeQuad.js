@@ -2,6 +2,9 @@
  * MyUnitCubeQuad
  * @constructor
  */
+
+var degToRad = Math.PI / 180.0;
+
  function MyUnitCubeQuad(scene) {
  	CGFobject.call(this, scene);
 

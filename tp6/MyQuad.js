@@ -2,33 +2,32 @@
  * MyQuad
  * @constructor
  */
- function MyQuad(scene, minS, maxS, minT, maxT) {
- 	CGFobject.call(this,scene);
+function MyQuad(scene, minS, maxS, minT, maxT) {
+    CGFobject.call(this, scene);
 
- 	this.minS = minS;
- 	this.maxS = maxS;
- 	this.minT = minT;
- 	this.maxT = maxT;
+    this.minS = minS;
+    this.maxS = maxS;
+    this.minT = minT;
+    this.maxT = maxT;
 
- 	this.initBuffers();
- };
+    this.initBuffers();
+};
 
- MyQuad.prototype = Object.create(CGFobject.prototype);
- MyQuad.prototype.constructor = MyQuad;
+MyQuad.prototype = Object.create(CGFobject.prototype);
+MyQuad.prototype.constructor = MyQuad;
 
- MyQuad.prototype.initBuffers = function()
- {
- 	this.vertices = [
- 	-0.5, -0.5, 0,
- 	0.5, -0.5, 0,
- 	-0.5, 0.5, 0,
- 	0.5, 0.5, 0
- 	];
+MyQuad.prototype.initBuffers = function () {
+    this.vertices = [
+  -0.5, -0.5, 0,
+  0.5, -0.5, 0,
+  -0.5, 0.5, 0,
+  0.5, 0.5, 0
+  ];
 
- 	this.indices = [
- 	0, 1, 2, 
- 	3, 2, 1
- 	];
+    this.indices = [
+  0, 1, 2,
+  3, 2, 1
+  ];
 
 
     this.normals = [
@@ -45,6 +44,6 @@
      this.maxS, this.minT
     ];
 
- 	this.primitiveType = this.scene.gl.TRIANGLES;
- 	this.initGLBuffers();
- };
+    this.primitiveType = this.scene.gl.TRIANGLES;
+    this.initGLBuffers();
+};
