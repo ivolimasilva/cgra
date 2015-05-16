@@ -81,27 +81,6 @@ LightingScene.prototype.init = function(application)
 
 	// Materials
 	this.materialDefault = new CGFappearance(this);
-/*	
-	this.materialA = new CGFappearance(this);
-	this.materialA.setAmbient(0.3,0.3,0.3,1);
-	this.materialA.setDiffuse(0.6,0.6,0.6,1);
-	this.materialA.setSpecular(0.0,0.2,0.8,1);
-	this.materialA.setShininess(120);
-
-	this.materialB = new CGFappearance(this);
-	this.materialB.setAmbient(0.3,0.3,0.3,1);
-	this.materialB.setDiffuse(0.6,0.6,0.6,1);
-	this.materialB.setSpecular(0.8,0.8,0.8,1);	
-	this.materialB.setShininess(120);
-*/
-/*
-	// Material Floor
-	this.materialFloor = new CGFappearance(this);
-	this.materialFloor.setAmbient(0.3,0.3,0.3,1);
-	this.materialFloor.setDiffuse(222.0/255,184.0/255,135.0/255,1);
-	this.materialFloor.setSpecular(0.1,0.1,0.1,1);	
-	this.materialFloor.setShininess(10);
-*/
 
 	//Floor Appearance
 	this.floorAppearance = new CGFappearance(this);
