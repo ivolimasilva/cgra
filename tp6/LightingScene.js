@@ -55,6 +55,7 @@ LightingScene.prototype.init = function (application) {
     this.robotWalk = 0;
     this.robotSpeed = 3;
     this.robotArmAppearance = "Cyan";
+    this.robotBodyAppearance = "Red";
 
 
     this.gl.clearColor(0.0, 0.0, 0.0, 1.0);

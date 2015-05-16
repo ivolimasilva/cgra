@@ -26,12 +26,20 @@ function MyRobot(scene, initX, initZ, initAngle) {
 
     // Appearances
 
-    // Body Appearance
-    this.bodyAppearance = new CGFappearance(this.scene);
-    this.bodyAppearance.setAmbient(0.3, 0.3, 0.3, 1);
-    this.bodyAppearance.setDiffuse(0, 1, 0.7, 1);
-    this.bodyAppearance.setSpecular(0.15, 0.15, 0.15, 1);
-    this.bodyAppearance.setShininess(10);
+    // Body Appearances
+    // Body Appearance 1
+    this.bodyAppearance1 = new CGFappearance(this.scene);
+    this.bodyAppearance1.setAmbient(0.3, 0.3, 0.3, 1);
+    this.bodyAppearance1.setDiffuse(0, 1, 0.7, 1);
+    this.bodyAppearance1.setSpecular(0.15, 0.15, 0.15, 1);
+    this.bodyAppearance1.setShininess(10);
+
+    //Body Appearance 2
+    this.bodyAppearance2 = new CGFappearance(this.scene);
+    this.bodyAppearance2.setAmbient(0.3, 0.3, 0.3, 1);
+    this.bodyAppearance2.setDiffuse(0.8, 0.1, 0.2, 1);
+    this.bodyAppearance2.setSpecular(0.15, 0.15, 0.15, 1);
+    this.bodyAppearance2.setShininess(10);
 
     // Arm Appearances
     // Arm Appearance 1
@@ -61,6 +69,12 @@ function MyRobot(scene, initX, initZ, initAngle) {
         "Cyan": "0",
         "Orange": "1",
         "Black": "2"
+    };
+
+    this.bodyAppearances = [this.bodyAppearance1, this.bodyAppearance2];
+    this.bodyAppearancesList = {
+        "Blue": "0",
+        "Red": "1"
     };
 };
 
@@ -99,7 +113,7 @@ MyRobot.prototype.display = function () {
     this.scene.translate(0, 0.30, 0);
     this.scene.rotate(-90 * degToRad, 1, 0, 0);
     this.scene.scale(0.1, 0.1, 1.5);
-    this.bodyAppearance.apply();
+    this.bodyAppearances[this.bodyAppearancesList[this.scene.robotBodyAppearance]].apply();
     this.body.display();
     this.scene.popMatrix();
 
