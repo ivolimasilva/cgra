@@ -114,8 +114,8 @@ MyRobot.prototype.incPos = function (increase) {
 
 	var sig = increase/Math.abs(increase);
 	
-	this.rotWheel('left', sig);
-	this.rotWheel('right', sig);
+	this.rotWheel('left', sig, this.scene.robotSpeed);
+	this.rotWheel('right', sig, this.scene.robotSpeed);
 
 	this.rotArms(sig);
 }
@@ -124,16 +124,16 @@ MyRobot.prototype.incRotate = function (sig) {
 
 	this.angle += sig * 5 * degToRad;
 	
-	this.rotWheel('left', -sig);
-	this.rotWheel('right', +sig);
+	this.rotWheel('left', -sig, 1);
+	this.rotWheel('right', +sig, 1);
 }
 
-MyRobot.prototype.rotWheel = function (wheel, sig) {
+MyRobot.prototype.rotWheel = function (wheel, sig, speed) {
 
 	if (wheel == 'right')
-		this.wheelRang += -sig * 10 * degToRad;
+		this.wheelRang += -sig * 10 * degToRad * speed;
 	else if(wheel == 'left')
-		this.wheelLang += -sig * 10 * degToRad;
+		this.wheelLang += -sig * 10 * degToRad * speed;
 
 }
 
