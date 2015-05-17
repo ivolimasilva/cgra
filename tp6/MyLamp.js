@@ -35,7 +35,7 @@ MyLamp.prototype.initBuffers = function () {
     for (var stack = 0; stack <= this.stacks; stack++) {
 
         var cur_stack_offset = stack * this.slices;
-        
+
         /* vertices */
         for (var slice = 0; slice < this.slices; slice++) {
             //push vertices from current slice
@@ -44,15 +44,11 @@ MyLamp.prototype.initBuffers = function () {
             this.vertices.push(Math.cos(stack * this.phi));
 
             /* textures */
-            //s = asin(Nx)/PI + 0.5    but normals = vertices here
-            //this.texCoords.push(0.5*(Math.asin(this.vertices[3 * slice + cur_stack_offset])) / Math.PI + 0.5);
-            this.texCoords.push(0.5*this.vertices[3*cur_stack_offset + 3*slice + 0] + 0.5);
-            //t = asin(Ny)/PI + 0.5    but normals = vertices here                     
-            //this.texCoords.push(0.5*(Math.asin(this.vertices[3 * slice + cur_stack_offset + 1])) / Math.PI + 0.5);
-            this.texCoords.push(0.5*this.vertices[3*cur_stack_offset + 3*slice + 1] + 0.5);
+            this.texCoords.push(0.5 * this.vertices[3 * cur_stack_offset + 3 * slice + 0] + 0.5);
+            this.texCoords.push(0.5 * this.vertices[3 * cur_stack_offset + 3 * slice + 1] + 0.5);
         }
     }
-    
+
     /* normals */
     this.normals = this.vertices;
 
