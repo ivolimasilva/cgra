@@ -18,8 +18,14 @@ function MyRobot(scene, initX, initZ, initAngle) {
 	this.wheelLang = 0;
 	this.wheelRang = 0;
 
-	this.armAng = 0;
+	this.armLang = 0;
+	this.armRang = 0;
 	this.armTime = 0;
+
+	this.isWaving = false;
+	this.waveState = 0;
+	this.waveAng = 0;
+	this.waveCount = 0;
 
 	// Object constructors
 	this.head = new MyLamp(this.scene, 20, 20);
@@ -112,8 +118,8 @@ MyRobot.prototype.incPos = function (increase) {
 	this.posX += increase * Math.sin(this.angle);
 	this.posZ += increase * Math.cos(this.angle);
 
-	var sig = increase/Math.abs(increase);
-	
+	var sig = increase / Math.abs(increase);
+
 	this.rotWheel('left', sig, this.scene.robotSpeed);
 	this.rotWheel('right', sig, this.scene.robotSpeed);
 
@@ -123,7 +129,7 @@ MyRobot.prototype.incPos = function (increase) {
 MyRobot.prototype.incRotate = function (sig) {
 
 	this.angle += sig * 5 * degToRad;
-	
+
 	this.rotWheel('left', -sig, 1);
 	this.rotWheel('right', +sig, 1);
 }
@@ -132,16 +138,75 @@ MyRobot.prototype.rotWheel = function (wheel, sig, speed) {
 
 	if (wheel == 'right')
 		this.wheelRang += -sig * 10 * degToRad * speed;
-	else if(wheel == 'left')
+	else if (wheel == 'left')
 		this.wheelLang += -sig * 10 * degToRad * speed;
 
 }
 
 MyRobot.prototype.rotArms = function (sig) {
 
-	this.armTime += sig*0.05;
-	this.armAng = 45*Math.cos(Math.PI/2 + 2*Math.PI*this.armTime);		//offset to start in ang 0
+	this.armTime += sig * 0.05;
+	this.armLang = 45 * Math.cos(Math.PI / 2 + 2 * Math.PI * this.armTime);
+
+	if (!this.isWaving)
+		this.armRang = 45 * Math.cos(Math.PI / 2 + 2 * Math.PI * this.armTime);
 }
+
+
+MyRobot.prototype.update = function (currTime) {
+
+	if (this.isWaving)
+		this.wave(currTime)
+}
+
+MyRobot.prototype.wave = function (currTime) {
+
+	//State machine fun
+
+	if (this.waveState == 0) {
+		//Begin
+		this.waveState = 1;
+		this.waveTime = currTime;
+	} else if (this.waveState == 1) {
+		//Right arm go up
+		this.armRang += 0.01 * (currTime - this.waveTime);
+
+		if (this.armRang >= 180) {
+			this.waveTime = currTime;
+			this.waveState = 2;
+		}
+	} else if (this.waveState == 2) {
+		//Right arm wave right
+		this.waveAng = 90 * Math.abs(Math.sin(2 * Math.PI * 0.0003 * (currTime - this.waveTime)));
+		if (this.waveAng >= 85) {
+			this.waveState = 3;
+		}
+	} else if (this.waveState == 3) {
+		//Right arm wave left
+		this.waveAng = 90 * Math.abs(Math.sin(2 * Math.PI * 0.0003 * (currTime - this.waveTime)));
+
+		if (this.waveAng <= 5) {
+			this.waveCount++;
+
+			if (this.waveCount == 3) {
+				this.waveTime = currTime;
+				this.waveAng = 0;
+				this.waveState = 4;
+				this.waveCount = 0;
+			} else
+				this.waveState = 2;
+		}
+	} else if (this.waveState == 4) {
+		this.armRang -= 0.01 * (currTime - this.waveTime);
+
+		if (this.armRang <= 1) {
+			this.waveTime = currTime;
+			this.waveState = 0;
+			this.isWaving = false;
+		}
+	}
+}
+
 
 MyRobot.prototype.display = function () {
 	//For all parts
@@ -171,7 +236,7 @@ MyRobot.prototype.display = function () {
 	this.scene.translate(0.5, 0.25, 0);
 	this.scene.rotate(90 * degToRad, 0, 1, 0);
 	this.scene.scale(0.25, 0.25, 0.25);
-	this.scene.rotate(-this.wheelLang, 0, 0, 1);	
+	this.scene.rotate(-this.wheelLang, 0, 0, 1);
 	this.wheelL.display();
 	this.scene.popMatrix();
 
@@ -187,7 +252,7 @@ MyRobot.prototype.display = function () {
 	//Arm left
 	this.scene.pushMatrix();
 	this.scene.translate(0.6, 1.3, 0);
-	this.scene.rotate((90+this.armAng) * degToRad, 1, 0, 0);
+	this.scene.rotate((90 + this.armLang) * degToRad, 1, 0, 0);
 	this.scene.scale(0.1, 0.1, 0.7);
 	this.armAppearances[this.armAppearancesList[this.scene.robotArmAppearance]].apply();
 	this.armL.display();
@@ -196,7 +261,8 @@ MyRobot.prototype.display = function () {
 	//Arm right
 	this.scene.pushMatrix();
 	this.scene.translate(-0.6, 1.3, 0);
-	this.scene.rotate((90-this.armAng) * degToRad, 1, 0, 0);
+	this.scene.rotate((90 - this.armRang) * degToRad, 1, 0, 0);
+	this.scene.rotate(-this.waveAng * degToRad, 0, 1, 0);
 	this.scene.scale(0.1, 0.1, 0.7);
 	this.armAppearances[this.armAppearancesList[this.scene.robotArmAppearance]].apply();
 	this.armR.display();
