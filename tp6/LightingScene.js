@@ -45,17 +45,17 @@ LightingScene.prototype.init = function (application) {
     this.initCameras();
 
     this.initLights();
-    this.numberOfLights = 5;
+    this.numberOfLights = 6;
 
     this.enableTextures(true);
 
     /* GUI vars */
-    this.GUIlights = [this.lights[0].enabled, this.lights[1].enabled, this.lights[2].enabled, this.lights[3].enabled, this.lights[4].enabled];
+    this.GUIlights = [this.lights[0].enabled, this.lights[1].enabled, this.lights[2].enabled, this.lights[3].enabled, this.lights[4].enabled, this.lights[5].enabled];
     this.robotRotate = 0;
     this.robotWalk = 0;
-    this.robotSpeed = 3;
-    this.robotArmAppearance = "Cyan";
-    this.robotBodyAppearance = "Red";
+    this.robotSpeed = 1.5;
+    this.robotArmAppearance = "R2-D2";
+    this.robotBodyAppearance = "R2-D2";
 
 
     this.gl.clearColor(0.0, 0.0, 0.0, 1.0);
@@ -101,8 +101,8 @@ LightingScene.prototype.init = function (application) {
 
     // Material Wall
     this.materialWall = new CGFappearance(this);
-    this.materialWall.setAmbient(0.3, 0.3, 0.3, 1);
-    this.materialWall.setDiffuse(0.0, 100.0 / 255, 0, 1);
+    this.materialWall.setAmbient(0.1, 0.1, 0.1, 1);
+    this.materialWall.setDiffuse(0.01, 0.3, 0.05, 1);
     this.materialWall.setSpecular(0.15, 0.15, 0.15, 1);
     this.materialWall.setShininess(10);
 
@@ -147,19 +147,21 @@ LightingScene.prototype.initLights = function () {
     this.shader.bind();
 
     // Positions for five lights
-    this.lights[0].setPosition(4, 6, 1, 1);
-    this.lights[1].setPosition(10.5, 6.0, 1.0, 1.0);
+    this.lights[0].setPosition(4, 6, 6, 1);
+    this.lights[1].setPosition(10.5, 5.0, 10.0, 1.0);
     this.lights[2].setPosition(10.5, 6.0, 5.0, 1.0);
     this.lights[3].setPosition(4, 6.0, 5.0, 1.0);
     this.lights[4].setPosition(7.5, 6.0, 12.0, 1.0);
+    this.lights[5].setPosition(7.5, 1.0, 15.0, 1.0);
 
     this.lights[0].setAmbient(0.2, 0.2, 0.2, 1);
     this.lights[0].setDiffuse(1.0, 1.0, 1.0, 1.0);
     this.lights[0].setSpecular(1.0, 1.0, 0.0, 1.0);
+    this.lights[0].setLinearAttenuation(0.05);
     this.lights[0].enable();
 
     this.lights[1].setAmbient(0, 0, 0, 1);
-    this.lights[1].setDiffuse(1.0, 1.0, 1.0, 1.0);
+    this.lights[1].setDiffuse(0.8, 0.8, 0.8, 1.0);
     this.lights[1].enable();
 
     this.lights[2].setAmbient(0, 0, 0, 1);
@@ -185,6 +187,12 @@ LightingScene.prototype.initLights = function () {
     this.lights[4].setLinearAttenuation(0.5);
     this.lights[4].setQuadraticAttenuation(0.0);
     this.lights[4].enable();
+
+    this.lights[5].setAmbient(0.2, 0.2, 0.2, 1);
+    this.lights[5].setDiffuse(0.8, 0.8, 0.8, 1.0);
+    this.lights[5].setSpecular(1.0, 1.0, 1.0, 1.0);
+    this.lights[5].setLinearAttenuation(0.2);
+    this.lights[5].enable();
 
     this.shader.unbind();
 };

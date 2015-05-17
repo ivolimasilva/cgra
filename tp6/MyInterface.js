@@ -50,8 +50,8 @@ MyInterface.prototype.init = function (application) {
     this.gui.add(this.scene, 'robotSpeed', 0, 10);
 
     // add constrained inputs
-    this.gui.add(this.scene, 'robotArmAppearance', ['Cyan', 'Orange', 'Black']);
-    this.gui.add(this.scene, 'robotBodyAppearance', ['Blue', 'Red']);
+    this.gui.add(this.scene, 'robotArmAppearance', ['Cyan', 'Orange', 'R2-D2']);
+    this.gui.add(this.scene, 'robotBodyAppearance', ['Blue', 'Red', 'R2-D2']);
 
     return true;
 };
