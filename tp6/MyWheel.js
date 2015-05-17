@@ -20,8 +20,8 @@ function MyWheel(scene, slices, stacks) {
 	// Top Appearance
 	this.topAppearance = new CGFappearance(this.scene);
 	this.topAppearance.setAmbient(0.7, 0.7, 0.7, 1);
-	this.topAppearance.setDiffuse(0.7, 0.7, 0.7, 1);
-	this.topAppearance.setSpecular(0.1,0.1,0.1,1);
+	this.topAppearance.setDiffuse(0.9, 0.9, 0.9, 1);
+	this.topAppearance.setSpecular(0.2,0.2,0.2,1);
 	this.topAppearance.setShininess(5);
 	this.topAppearance.loadTexture(this.scene.path + "wheel.png");
 	this.topAppearance.setTextureWrap("CLAMP_TO_EDGE", "CLAMP_TO_EDGE");
