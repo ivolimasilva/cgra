@@ -74,7 +74,7 @@ LightingScene.prototype.init = function (application) {
     this.boardA = new Plane(this, BOARD_A_DIVISIONS, BOARD_A_RATIO);
     this.boardB = new Plane(this, BOARD_B_DIVISIONS, BOARD_B_RATIO);
     this.cylinder = new MyCoveredCylinder(this, 6, 20);
-    this.lamp = new MyLamp(this, 8, 20);
+    this.lamp = new MyLamp(this, 16, 20);
     this.clock = new MyClock(this, 12, 1);
     this.paperPlane = new MyPaperPlane(this, 20, [0, 11.5, 2], [180 * degToRad, 180 * degToRad, 0 * degToRad], [0, -1.5, -5]);
     this.robot = new MyRobot(this, 7.25, 8, -155 * degToRad);
@@ -132,6 +132,15 @@ LightingScene.prototype.init = function (application) {
     this.pillarAppearance.setShininess(50);
     this.pillarAppearance.loadTexture(this.path + "pillar.png");
     this.pillarAppearance.setTextureWrap("CLAMP_TO_EDGE", "CLAMP_TO_EDGE");
+
+    // Lamp Appearance
+    this.lampAppearance = new CGFappearance(this);
+    this.lampAppearance.setAmbient(0.5, 0.5, 0.5, 1);
+    this.lampAppearance.setDiffuse(0.5, 0.5, 0.5, 1);
+    this.lampAppearance.setSpecular(0.8, 0.8, 0.8, 1);
+    this.lampAppearance.setShininess(20);
+    this.lampAppearance.loadTexture(this.path + "disco.png");
+    this.lampAppearance.setTextureWrap("CLAMP_TO_EDGE", "CLAMP_TO_EDGE");
 
     /* setup update method */
     this.setUpdatePeriod(25);
@@ -246,13 +255,11 @@ LightingScene.prototype.display = function () {
     this.cylinder.display();
     this.popMatrix();
 
-
-
     // Lamp(8,20)
     this.pushMatrix();
     this.translate(7.5, 8, 7.5);
     this.rotate(Math.PI / 2, 1, 0, 0);
-    this.materialDefault.apply();
+    this.lampAppearance.apply();
     this.lamp.display();
     this.popMatrix();
 
