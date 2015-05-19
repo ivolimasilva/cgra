@@ -199,7 +199,7 @@ MyRobot.prototype.wave = function (currTime) {
 	} else if (this.waveState == 4) {
 		this.armRang -= 0.01 * (currTime - this.waveTime);
 
-		if (this.armRang <= 1) {
+		if (this.armRang <= this.armLang) {
 			this.waveTime = currTime;
 			this.waveState = 0;
 			this.isWaving = false;

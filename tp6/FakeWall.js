@@ -1,102 +1,78 @@
-/** Represents a FakeWall with nrDivs divisions along both axis, with center at (0,0) */
-function FakeWall(scene) {
-    CGFobject.call(this, scene);
-    this.nrDivs = 9.0;
-    this.patchLength = 1.0 / 9.0;
-    this.initBuffers();
+function FakeWall(scene, xLeft, xRight, yUp, yDown) {
+	CGFobject.call(this, scene);
+
+	this.boards = [];
+	this.boards[0] = new MyQuad(this.scene, xLeft - 1, xLeft, yUp - 1, yUp);
+	this.boards[1] = new MyQuad(this.scene, xLeft, xRight, yUp - 1, yUp);
+	this.boards[2] = new MyQuad(this.scene, xRight, 1 + xRight, yUp - 1, yUp);
+
+	this.boards[3] = new MyQuad(this.scene, xLeft - 1, xLeft, yUp, yDown);
+	this.boards[4] = new MyQuad(this.scene, xRight, 1 + xRight, yUp, yDown);
+
+	this.boards[5] = new MyQuad(this.scene, xLeft - 1, xLeft, yDown, 1 + yDown);
+	this.boards[6] = new MyQuad(this.scene, xLeft, xRight, yDown, 1 + yDown);
+	this.boards[7] = new MyQuad(this.scene, xRight, 1 + xRight, yDown, 1 + yDown);
+
+	this.initBuffers();
 };
 
 FakeWall.prototype = Object.create(CGFobject.prototype);
 FakeWall.prototype.constructor = FakeWall;
 
-FakeWall.prototype.initBuffers = function () {
-    /* example for nrDivs = 3 :
-	(numbers represent index of point in vertices array)
+FakeWall.prototype.display = function () {
 
-	        y
-        	^
-	        |
-	0    1  |  2    3
-	        |
-	4	 5	|  6    7
-	--------|--------------> x
-	8    9  |  10  11
-	        |
-	12  13  |  14  15    
-
-	*/
-
-    // Generate vertices and normals 
-    this.vertices = [];
-    this.normals = [];
-
-    // Uncomment below to init texCoords
-    this.texCoords = [];
-
-    var yCoord = 0.5;
-
-    for (var j = 0; j <= this.nrDivs; j++) {
-        var xCoord = -0.5;
-        for (var i = 0; i <= this.nrDivs; i++) {
-            this.vertices.push(xCoord, yCoord, 0);
-
-            // As this FakeWall is being drawn on the xy FakeWall, the normal to the FakeWall will be along the positive z axis.
-            // So all the vertices will have the same normal, (0, 0, 1).
-            this.texCoords.push(i / this.nrDivs, (j / this.nrDivs - 0.5) + 0.5);
-
-            this.normals.push(0, 0, 1);
-
-            xCoord += this.patchLength;
-        }
-        yCoord -= this.patchLength;
-    }
-
-    // Generating indices
-    /* for nrDivs = 3 output will be 
-		[
-			 0, 4, 1, 5, 2, 6, 3, 7, 7, 4,
-			 4, 8, 5, 9, 6, 10, 7, 11, 11, 8,
-			 8, 12, 9, 13, 10, 14, 11, 15,
-		]
-	Interpreting this index list as a TRIANGLE_STRIP will draw rows of the FakeWall (with degenerate triangles in between. */
-
-    this.indices = [];
-    var ind = 0;
+	//scale all back to 1 by 1
+	this.scene.scale(1.0 / 3, 1.0 / 3, 1.0 / 3);
 
 
-    for (var j = 0; j < this.nrDivs; j++) {
-        for (var i = 0; i <= this.nrDivs; i++) {
-            this.indices.push(ind);
-            this.indices.push(ind + this.nrDivs + 1);
+	//Board (left up)
+	this.scene.pushMatrix();
+	this.scene.translate(-1, 1, 0);
+	this.boards[0].display();
+	this.scene.popMatrix();
 
-            ind++;
-        }
-        if (j + 1 < this.nrDivs) {
-            // Extra vertices to create degenerate triangles so that the strip can wrap on the next row
-            // degenerate triangles will not generate fragments
-            this.indices.push(ind + this.nrDivs);
-            this.indices.push(ind);
-        }
-    }
+	//Board (middle up)
+	this.scene.pushMatrix();
+	this.scene.translate(0, 1, 0);
+	this.boards[1].display();
+	this.scene.popMatrix();
 
-    this.primitiveType = this.scene.gl.TRIANGLE_STRIP;
+	//Board (right up)
+	this.scene.pushMatrix();
+	this.scene.translate(1, 1, 0);
+	this.boards[2].display();
+	this.scene.popMatrix();
 
-    /* Alternative with TRIANGLES instead of TRIANGLE_STRIP. More indices, but no degenerate triangles */
-    /*
-    	for (var j = 0; j < this.nrDivs; j++) 
-    	{
-    		for (var i = 0; i < this.nrDivs; i++) 
-    		{
-    			this.indices.push(ind, ind+this.nrDivs+1, ind+1);
-    			this.indices.push(ind+1, ind+this.nrDivs+1, ind+this.nrDivs+2 );
+	//Board (left middle)
+	this.scene.pushMatrix();
+	this.scene.translate(-1, 0, 0);
+	this.boards[3].display();
+	this.scene.popMatrix();
 
-    			ind++;
-    		}
-    		ind++;
-    	}
+	//Board (right middle)
+	this.scene.pushMatrix();
+	this.scene.translate(1, 0, 0);
+	this.boards[4].display();
+	this.scene.popMatrix();
 
-    	this.primitiveType = this.scene.gl.TRIANGLES;
-    */
+	//Board (left down)
+	this.scene.pushMatrix();
+	this.scene.translate(-1, -1, 0);
+	this.boards[5].display();
+	this.scene.popMatrix();
 
-    this.initGLBuffers();
-};
+	//Board (middle down)
+	this.scene.pushMatrix();
+	this.scene.translate(0, -1, 0);
+	this.boards[6].display();
+	this.scene.popMatrix();
+
+	//Board (right down)
+	this.scene.pushMatrix();
+	this.scene.translate(1, -1, 0);
+	this.boards[7].display();
+	this.scene.popMatrix();
+
+
+
+}

@@ -9,6 +9,7 @@ var BOARD_B_DIVISIONS = 100;
 
 var BOARD_A_RATIO = BOARD_RATIO / (512.0 / 512.0);
 var BOARD_B_RATIO = BOARD_RATIO / (512.0 / 372.0);
+var BACKGROUND_RATIO = (1200 / 1600);
 
 function LightingScene() {
 	CGFscene.call(this);
@@ -71,9 +72,8 @@ LightingScene.prototype.init = function (application) {
 	// Scene elements
 	this.table = new MyTable(this);
 	this.floor = new MyQuad(this, 0, 10, 0, 12);
-	this.leftWall = new MyQuad(this, -1, 2, -1, 2);
 	this.wall = new Plane(this);
-	this.fakewall = new FakeWall(this);
+	this.fakewall = new FakeWall(this, 0.03, 0.97, 0.05, 0.95);
 	this.boardA = new Plane(this, BOARD_A_DIVISIONS, BOARD_A_RATIO);
 	this.boardB = new Plane(this, BOARD_B_DIVISIONS, BOARD_B_RATIO);
 	this.cylinder = new MyCoveredCylinder(this, 6, 20);
@@ -81,6 +81,7 @@ LightingScene.prototype.init = function (application) {
 	this.clock = new MyClock(this, 12, 1);
 	this.paperPlane = new MyPaperPlane(this, 20, [0, 11.5, 2], [180 * degToRad, 180 * degToRad, 0 * degToRad], [0, -1.5, -5]);
 	this.robot = new MyRobot(this, 7.25, 8, -155 * degToRad);
+	this.background = new Plane(this, 30, BACKGROUND_RATIO);
 
 	// Materials
 	this.materialDefault = new CGFappearance(this);
@@ -95,9 +96,9 @@ LightingScene.prototype.init = function (application) {
 
 	//Window Appearance
 	this.windowAppearance = new CGFappearance(this);
-	this.windowAppearance.setAmbient(0.3, 0.3, 0.3, 1);
-	this.windowAppearance.setDiffuse(0.5, 0.5, 0.5, 1);
-	this.windowAppearance.setSpecular(0.1, 0.1, 0.1, 1);
+	this.windowAppearance.setAmbient(0.1, 0.1, 0.1, 1);
+	this.windowAppearance.setDiffuse(0.1, 0.3, 0.05, 1);
+	this.windowAppearance.setSpecular(0.15, 0.15, 0.15, 1);
 	this.windowAppearance.setShininess(10);
 	this.windowAppearance.loadTexture(this.path + "window.png");
 	this.windowAppearance.setTextureWrap("CLAMP_TO_EDGE", "CLAMP_TO_EDGE");
@@ -144,6 +145,15 @@ LightingScene.prototype.init = function (application) {
 	this.lampAppearance.setShininess(20);
 	this.lampAppearance.loadTexture(this.path + "disco.png");
 	this.lampAppearance.setTextureWrap("CLAMP_TO_EDGE", "CLAMP_TO_EDGE");
+
+	// Background Appearance
+	this.backgroundAppearance = new CGFappearance(this);
+	this.backgroundAppearance.setAmbient(0.8, 0.8, 0.8, 1);
+	this.backgroundAppearance.setDiffuse(0.5, 0.5, 0.5, 1);
+	this.backgroundAppearance.setSpecular(0.3, 0.3, 0.3, 1);
+	this.backgroundAppearance.setShininess(5);
+	this.backgroundAppearance.loadTexture(this.path + "tatooine.jpg");
+	this.backgroundAppearance.setTextureWrap("CLAMP_TO_EDGE", "CLAMP_TO_EDGE");
 
 	/* setup update method */
 	this.setUpdatePeriod(25);
@@ -275,14 +285,14 @@ LightingScene.prototype.display = function () {
 	this.floor.display();
 	this.popMatrix();
 
-    // Fake Wall
-    this.pushMatrix();
-    this.translate(0, 4, 7.5);
-    this.rotate(90 * degToRad, 0, 1, 0);
-    this.scale(15, 8, 0.2);
-    this.windowAppearance.apply();
-    this.fakewall.display();
-    this.popMatrix();
+	// Fake Wall
+	this.pushMatrix();
+	this.translate(0, 4, 7.5);
+	this.rotate(90 * degToRad, 0, 1, 0);
+	this.scale(15, 8, 0.2);
+	this.windowAppearance.apply();
+	this.fakewall.display();
+	this.popMatrix();
 
 	// Plane Wall
 	this.pushMatrix();
@@ -340,6 +350,15 @@ LightingScene.prototype.display = function () {
 	// Robot
 	this.pushMatrix();
 	this.robot.display();
+	this.popMatrix();
+
+	this.pushMatrix();
+
+	this.translate(-2, 3.5, 7.5);
+	this.rotate(90 * degToRad, 0, 1, 0);
+	this.scale(7 / BACKGROUND_RATIO, 7 * BACKGROUND_RATIO, 1);
+	this.backgroundAppearance.apply();
+	this.background.display();
 	this.popMatrix();
 
 	// ---- END Primitive drawing section
