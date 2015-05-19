@@ -20,6 +20,7 @@ serialInclude([
 	'MyInterface.js',
 	'MyRobot.js',
 	'MyWheel.js',
+	'FakeWall.js',
 
 	main=function() {
 		var app = new CGFapplication(document.body);

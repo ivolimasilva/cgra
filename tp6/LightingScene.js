@@ -73,6 +73,7 @@ LightingScene.prototype.init = function (application) {
 	this.floor = new MyQuad(this, 0, 10, 0, 12);
 	this.leftWall = new MyQuad(this, -1, 2, -1, 2);
 	this.wall = new Plane(this);
+	this.fakewall = new FakeWall(this);
 	this.boardA = new Plane(this, BOARD_A_DIVISIONS, BOARD_A_RATIO);
 	this.boardB = new Plane(this, BOARD_B_DIVISIONS, BOARD_B_RATIO);
 	this.cylinder = new MyCoveredCylinder(this, 6, 20);
@@ -274,14 +275,14 @@ LightingScene.prototype.display = function () {
 	this.floor.display();
 	this.popMatrix();
 
-	// Left Wall
-	this.pushMatrix();
-	this.translate(0, 4, 7.5);
-	this.rotate(90 * degToRad, 0, 1, 0);
-	this.scale(15, 8, 0.2);
-	this.windowAppearance.apply();
-	this.leftWall.display();
-	this.popMatrix();
+    // Fake Wall
+    this.pushMatrix();
+    this.translate(0, 4, 7.5);
+    this.rotate(90 * degToRad, 0, 1, 0);
+    this.scale(15, 8, 0.2);
+    this.windowAppearance.apply();
+    this.fakewall.display();
+    this.popMatrix();
 
 	// Plane Wall
 	this.pushMatrix();
