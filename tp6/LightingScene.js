@@ -43,6 +43,36 @@ LightingScene.prototype.Clock = function () {
 	console.log("Changing clock state");
 };
 
+LightingScene.prototype.AllLights = function () {
+
+	//if any light is on, turn all off
+	//else turn all on
+
+	var nextState = true;
+
+	//check current state
+	for (i = 0; i < this.numberOfLights; i++) {
+
+		if (this.lights[i].enabled) {
+			nextState = false;
+			break;
+		}
+	}
+
+	//apply next state and change in GUI
+	for (i = 0; i < this.numberOfLights; i++) {
+
+		if (nextState) {
+			this.lights[i].enable();
+		} else {
+			this.lights[i].disable();
+		}
+
+		this.GUIlights[i] = this.lights[i].enabled;
+		this.tickLights[i].setValue(nextState);
+	}
+}
+
 LightingScene.prototype.init = function (application) {
 	CGFscene.prototype.init.call(this, application);
 
@@ -355,9 +385,9 @@ LightingScene.prototype.display = function () {
 
 	// Background
 	this.pushMatrix();
-	this.translate(-1, 4, 7.5);
+	this.translate(-50, 4, 7.5);
 	this.rotate(90 * degToRad, 0, 1, 0);
-	this.scale(7 * BACKGROUND_RATIO, 7 / BACKGROUND_RATIO, 1);
+	this.scale(40 * BACKGROUND_RATIO, 40 / BACKGROUND_RATIO, 1);
 	this.backgroundAppearance.apply();
 	this.background.display();
 	this.popMatrix();

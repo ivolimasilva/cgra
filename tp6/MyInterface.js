@@ -31,6 +31,10 @@ MyInterface.prototype.init = function (application) {
 
 	this.gui.add(this.scene, 'Clock');
 
+	// lights control
+	this.gui.add(this.scene, 'AllLights');
+
+
 	// add a group of controls (and open/expand by defult)
 
 	var lights = this.gui.addFolder("Lights");
@@ -38,8 +42,10 @@ MyInterface.prototype.init = function (application) {
 	// add two check boxes to the group. The identifiers must be members variables of the scene initialized in scene.init as boolean
 	// e.g. this.option1=true; this.option2=false;
 
+	this.scene.tickLights = [];
+
 	for (i = 0; i < this.scene.numberOfLights; i++) {
-		lights.add(this.scene.GUIlights, '' + i);
+		this.scene.tickLights[i] = lights.add(this.scene.GUIlights, '' + i);
 	}
 
 	// add a slider
