@@ -95,8 +95,8 @@ MyInterface.prototype.processKeyboard = function (event) {
 		this.scene.robot.incPos(-0.1 * this.scene.robotSpeed);
 		break;
 
-	case (72): //falthrough to lower case
-	case (104):
+	case (79): //falthrough to lower case
+	case (111):
 		console.log("Key 'H' pressed");
 		if (!this.scene.robot.isWaving) {
 			console.log("Waving in 3...2...1...");

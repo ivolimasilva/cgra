@@ -9,7 +9,8 @@ var BOARD_B_DIVISIONS = 100;
 
 var BOARD_A_RATIO = BOARD_RATIO / (512.0 / 512.0);
 var BOARD_B_RATIO = BOARD_RATIO / (512.0 / 372.0);
-var BACKGROUND_RATIO = (1200 / 1600);
+
+var BACKGROUND_RATIO = 1600.0 / 1200.0;
 
 function LightingScene() {
 	CGFscene.call(this);
@@ -81,7 +82,7 @@ LightingScene.prototype.init = function (application) {
 	this.clock = new MyClock(this, 12, 1);
 	this.paperPlane = new MyPaperPlane(this, 20, [0, 11.5, 2], [180 * degToRad, 180 * degToRad, 0 * degToRad], [0, -1.5, -5]);
 	this.robot = new MyRobot(this, 7.25, 8, -155 * degToRad);
-	this.background = new Plane(this, 30, BACKGROUND_RATIO);
+	this.background = new Plane(this, 30, 1);
 
 	// Materials
 	this.materialDefault = new CGFappearance(this);
@@ -152,7 +153,7 @@ LightingScene.prototype.init = function (application) {
 	this.backgroundAppearance.setDiffuse(0.5, 0.5, 0.5, 1);
 	this.backgroundAppearance.setSpecular(0.3, 0.3, 0.3, 1);
 	this.backgroundAppearance.setShininess(5);
-	this.backgroundAppearance.loadTexture(this.path + "tatooine.jpg");
+	this.backgroundAppearance.loadTexture(this.path + "background.jpg");
 	this.backgroundAppearance.setTextureWrap("CLAMP_TO_EDGE", "CLAMP_TO_EDGE");
 
 	/* setup update method */
@@ -352,11 +353,11 @@ LightingScene.prototype.display = function () {
 	this.robot.display();
 	this.popMatrix();
 
+	// Background
 	this.pushMatrix();
-
-	this.translate(-2, 3.5, 7.5);
+	this.translate(-1, 4, 7.5);
 	this.rotate(90 * degToRad, 0, 1, 0);
-	this.scale(7 / BACKGROUND_RATIO, 7 * BACKGROUND_RATIO, 1);
+	this.scale(7 * BACKGROUND_RATIO, 7 / BACKGROUND_RATIO, 1);
 	this.backgroundAppearance.apply();
 	this.background.display();
 	this.popMatrix();
