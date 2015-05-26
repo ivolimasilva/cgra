@@ -97,7 +97,7 @@ LightingScene.prototype.init = function (application) {
 	//Window Appearance
 	this.windowAppearance = new CGFappearance(this);
 	this.windowAppearance.setAmbient(0.1, 0.1, 0.1, 1);
-	this.windowAppearance.setDiffuse(0.1, 0.3, 0.05, 1);
+	this.windowAppearance.setDiffuse(0.5, 0.5, 0.5, 1);
 	this.windowAppearance.setSpecular(0.15, 0.15, 0.15, 1);
 	this.windowAppearance.setShininess(10);
 	this.windowAppearance.loadTexture(this.path + "window.png");
